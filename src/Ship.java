@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Ship {
 
     /**
@@ -10,38 +12,75 @@ public class Ship {
      * direction: whether ship is positioned vertical or horizontal
      * location: space where top of ship is located
      */
-    private String shipName;
+    private final String shipName;
 
-    private char[] shipStatus;
+    private final char[] shipStatus;
 
-    private boolean isVertical;
+    private final boolean isVertical;
 
-    private int location;
+    private final int location;
 
     /**
-     * Contractor for ship
+     * Constructor for ship
      * @param shipName String, name of ship
      * @param size int, sets the size of shipStatus array
-     * @param Direction boolean, horizontal[false] vertical[True]
+     * @param isVertical boolean, horizontal[false] vertical[True]
      * @param location int, board location for ship
      */
-    public Ship(String shipName, int size, boolean Direction, int location){
-        //TODO
+    public Ship(String shipName, int size, boolean isVertical, int location){
+        this.shipName = shipName;
+        shipStatus = new char[size];
+        Arrays.fill(shipStatus, 'A');
+        this.isVertical = isVertical;
+        this.location = location;
     }
 
     /**
-     *
+     * @return name of ship
+     */
+    public String getShipName(){
+        return shipName;
+    }
+
+    /**
+     * @return length of shipStatus array
+     */
+    public int getSize(){
+        return shipStatus.length;
+    }
+
+    /**
+     * @return location of edge of ship
+     */
+    public int getLocation() {
+        return location;
+    }
+
+    /**
+     * @return whether the ship is vertical or not
+     */
+    public boolean getIsVertical(){
+        return isVertical;
+    }
+
+    /**
      * @return boolean if ship has sunk
      */
     public boolean hasSunk(){
-        //TODO
-        return false;
+        for (char status : shipStatus) {
+            if (status != 'H') {
+                return false;
+                //if at any point there is an 'Alive' spot of ship, return false
+            }
+        }
+        return true;
     }
 
     /**
      * if hasSunk() is true, sets all shipStatus chars to 'S'
      */
     public void sinkShip(){
-        //TODO
+        Arrays.fill(shipStatus, 'S');
+
     }
 }
