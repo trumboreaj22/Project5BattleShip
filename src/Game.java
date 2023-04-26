@@ -3,13 +3,15 @@ public class Game {
      * Constructs a new game object
      */
     public Game(){
-
+        Player user = new Player();
+        Player ai = new AI();
     }
 
     /**
      * runs through a full game
      */
-    public void gameloop(){
+    public void gameLoop(){
+        setup();
 
     }
 

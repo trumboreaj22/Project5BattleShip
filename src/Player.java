@@ -1,13 +1,10 @@
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Player {
     /**
      * An array representing the state of the board
      */
-    private char[] board = new char[10];
+    private char[] board = new char[100];
 
     /**
      * An integer that represents the number of ship spaces that have not yet been sunk
@@ -28,7 +25,12 @@ public class Player {
      * Constructor - creates a player's board
      */
     public Player(){
-        // TODO
+        for (int i = 0; i < 10; i++){
+            for (int j = 0; j < 10; j++){
+                m.put(String.valueOf(new char[] {(char)('A' + i), (char)('1' + j)}), 10 * j + i);
+            }
+        }
+        Arrays.fill(board, 'O');
     }
 
     /**
@@ -47,25 +49,22 @@ public class Player {
      *                      or 'S' - sunk ship
      */
     public char getStatus(int location){
-        // TODO
-        return ' ';
+        return board[location];
     }
 
     /**
      * Translates the location from a string to an int using a map
-     * @param location is a String in the form of 'A1'
+     * @param location is a String in the form of "A1"
      * @return
      */
     public int playerSelection(String location){
-        // TODO
-        return -1;
+        return m.get(location);
     }
 
     /**
      * @return a boolean: true if the player sunk all the ships, otherwise false
      */
     public boolean hasWon(){
-        // TODO
-        return false;
+        return shipSpacesRemaining == 0;
     }
 }
