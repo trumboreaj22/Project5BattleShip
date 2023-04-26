@@ -81,6 +81,5 @@ public class Ship {
      */
     public void sinkShip(){
         Arrays.fill(shipStatus, 'S');
-
     }
 }
