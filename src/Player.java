@@ -27,7 +27,13 @@ public class Player {
     public Player(){
         for (int i = 0; i < 10; i++){
             for (int j = 0; j < 10; j++){
-                m.put(String.valueOf(new char[] {(char)('A' + i), (char)('1' + j)}), 10 * j + i);
+                String num = "" + (char)('1' + j);
+                if (num.equals(":")){
+                    num = "10";
+                }
+                String key =(char)('A' + i) + num;
+
+                m.put(key, 10 * i + j);
             }
         }
         Arrays.fill(board, 'O');
@@ -37,8 +43,23 @@ public class Player {
      * Updates the board according to the location entered
      * @param location is an int from 0-99 representing the desired space on the board
      */
-    public void play(int location){
-        // TODO
+    public void play(int location) throws Exception {
+        /*
+
+        Integer l = location;
+        if(guesses.contains(l)){
+            throw new Exception();
+        }
+
+        if(getStatus(location) == 'O'){
+            board[location] = 'M';
+        } else {
+
+        }
+
+        guesses.add(l);
+
+         */
     }
 
     /**

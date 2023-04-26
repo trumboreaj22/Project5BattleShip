@@ -21,4 +21,15 @@ public class Game {
     public void setup(){
 
     }
+
+    public String printBoard(Player player){
+        String output = "";
+        for (int i = 0; i < 99; i++){
+            output += player.getStatus(i) + " ";
+            if ((i) % 9 == 0){
+                output += "\n" + 'A';
+            }
+        }
+        return output;
+    }
 }
