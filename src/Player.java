@@ -40,6 +40,21 @@ public class Player {
     }
 
     /**
+     * @return number of ships spaces remaining
+     */
+    public int getShipSpacesRemaining(){
+        return shipSpacesRemaining;
+    }
+
+    /**
+     * @param shipSpacesRemaining new amount of ships spaces remaining
+     */
+    public void setShipSpacesRemaining(int shipSpacesRemaining){
+        this.shipSpacesRemaining = shipSpacesRemaining;
+    }
+
+
+    /**
      * Updates the board according to the location entered
      * @param location is an int from 0-99 representing the desired space on the board
      */
