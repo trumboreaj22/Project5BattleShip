@@ -16,9 +16,9 @@ public class Ship {
 
     private final char[] shipStatus;
 
-    private final boolean isVertical;
+    private boolean isVertical;
 
-    private final int location;
+    private int location;
 
     /**
      * Constructor for ship
@@ -27,12 +27,12 @@ public class Ship {
      * @param isVertical boolean, horizontal[false] vertical[True]
      * @param location int, board location for ship
      */
-    public Ship(String shipName, int size, boolean isVertical, int location){
+    public Ship(String shipName, int size){
         this.shipName = shipName;
         shipStatus = new char[size];
         Arrays.fill(shipStatus, 'A');
-        this.isVertical = isVertical;
-        this.location = location;
+        isVertical = false;
+        location = -1;
     }
 
     /**
@@ -61,6 +61,11 @@ public class Ship {
      */
     public boolean getIsVertical(){
         return isVertical;
+    }
+
+    public void setShip (boolean isVertical, int location){
+        this.isVertical = isVertical;
+        this.location = location;
     }
 
     /**

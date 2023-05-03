@@ -10,6 +10,12 @@ public class Player {
      * An integer that represents the number of ship spaces that have not yet been sunk
      */
     private int shipSpacesRemaining = 17;
+    private Ship carrier;
+    private Ship battleship;
+    private Ship cruiser;
+    private Ship submarine;
+    private Ship destroyer;
+    private ArrayList<Ship> playerShips;
 
     /**
      * A set of integers that represents the spaces on the board that have been already guessed
@@ -37,6 +43,26 @@ public class Player {
             }
         }
         Arrays.fill(board, 'O');
+        carrier = new Ship("Carrier", 5);
+        battleship = new Ship("Battleship", 4);
+        cruiser = new Ship("Cruiser", 3);
+        submarine = new Ship("Submarine", 3);
+        destroyer = new Ship("Destroyer", 2);
+
+        playerShips = new ArrayList<>();
+
+        playerShips.add(carrier);
+        playerShips.add(battleship);
+        playerShips.add(cruiser);
+        playerShips.add(submarine);
+        playerShips.add(destroyer);
+    }
+
+    /**
+     * @return ArrayList of Ships
+     */
+    public ArrayList<Ship> getPlayerShips(){
+        return playerShips;
     }
 
     /**
@@ -44,6 +70,12 @@ public class Player {
      */
     public int getShipSpacesRemaining(){
         return shipSpacesRemaining;
+    }
+
+    public void setShips(boolean[] isVertical, int[] location){
+        for (int i = 0; i < 5; i++){
+            playerShips.get(i).setShip(isVertical[i], location[i]);
+        }
     }
 
     /**
