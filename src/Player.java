@@ -72,10 +72,9 @@ public class Player {
         return shipSpacesRemaining;
     }
 
-    public void setShips(boolean[] isVertical, int[] location){
-        for (int i = 0; i < 5; i++){
-            playerShips.get(i).setShip(isVertical[i], location[i]);
-        }
+    public void setShips(int index, boolean isVertical, String location){
+        int l = m.get(location);
+        playerShips.get(index).setShip(isVertical, l);
     }
 
     /**
