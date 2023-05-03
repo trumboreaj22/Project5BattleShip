@@ -27,8 +27,8 @@ public class Game {
         Scanner scn = new Scanner(System.in);
         String[] locations =  new String[5];
         boolean[] isVerticals = new boolean[5];
-        for(int i = 0; i < playerShips.size(); i++) {
-            System.out.println("Location for " + user.getPlayerShips(i) + "?");
+        for(int i = 0; i < user.getPlayerShips().size(); i++) {
+            System.out.println("Location for " + user.getPlayerShips().get(i) + "?");
             locations[i] = scn.next();
             System.out.println("Is the ship vertical?");
             while(true) {
@@ -42,7 +42,7 @@ public class Game {
                 }
                 System.out.println("Y or N");
             }
-            setShips(locations, isVerticals);
+            user.setShips(isVerticals, locations);
         }
     }
 
