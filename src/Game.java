@@ -25,24 +25,26 @@ public class Game {
     public void setup(){
         System.out.println(printBoard(user));
         Scanner scn = new Scanner(System.in);
-        String[] locations =  new String[5];
-        boolean[] isVerticals = new boolean[5];
+
+
         for(int i = 0; i < user.getPlayerShips().size(); i++) {
             System.out.println("Location for " + user.getPlayerShips().get(i) + "?");
-            locations[i] = scn.next();
+            String location = scn.next();
+
             System.out.println("Is the ship vertical?");
+            boolean isVertical;
             while(true) {
                 String response = scn.next();
                 if (response.toUpperCase().charAt(0) == 'Y') {
-                    isVerticals[i] = true;
+                    isVertical = true;
                     break;
                 } else if (response.toUpperCase().charAt(0) == 'N') {
-                    isVerticals[i] = false;
+                    isVertical = false;
                     break;
                 }
                 System.out.println("Y or N");
             }
-            user.setShips(isVerticals, locations);
+            user.setShips(i, isVertical, location);
         }
     }
 
