@@ -44,8 +44,6 @@ public class Player {
      * @param location is an int from 0-99 representing the desired space on the board
      */
     public void play(int location) throws Exception {
-        /*
-
         Integer l = location;
         if(guesses.contains(l)){
             throw new Exception();
@@ -54,12 +52,10 @@ public class Player {
         if(getStatus(location) == 'O'){
             board[location] = 'M';
         } else {
-
+            board[location] = 'H';
         }
 
         guesses.add(l);
-
-         */
     }
 
     /**
