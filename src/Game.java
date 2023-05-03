@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Game {
     private Player user;
     private Player ai;
@@ -22,6 +24,26 @@ public class Game {
      */
     public void setup(){
         System.out.println(printBoard(user));
+        Scanner scn = new Scanner(System.in);
+        String[] locations =  new String[5];
+        boolean[] isVerticals = new boolean[5];
+        for(int i = 0; i < playerShips.size(); i++) {
+            System.out.println("Location for " + user.getPlayerShips(i) + "?");
+            locations[i] = scn.next();
+            System.out.println("Is the ship vertical?");
+            while(true) {
+                String response = scn.next();
+                if (response.toUpperCase().charAt(0) == 'Y') {
+                    isVerticals[i] = true;
+                    break;
+                } else if (response.toUpperCase().charAt(0) == 'N') {
+                    isVerticals[i] = false;
+                    break;
+                }
+                System.out.println("Y or N");
+            }
+            setShips(locations, isVerticals);
+        }
     }
 
     public String printBoard(Player player){
