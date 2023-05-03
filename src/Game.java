@@ -32,19 +32,28 @@ public class Game {
             String location = scn.next();
 
             System.out.println("Is the ship vertical?");
-            boolean isVertical;
             while(true) {
                 String response = scn.next();
                 if (response.toUpperCase().charAt(0) == 'Y') {
-                    isVertical = true;
-                    break;
+                    try {
+                        user.setShips(i, true, location);
+                        break;
+                    }
+                    catch(Exception e){
+                        System.out.println("Invalid Input, ship overlaps other ship or edge");
+                    }
                 } else if (response.toUpperCase().charAt(0) == 'N') {
-                    isVertical = false;
-                    break;
+                    try {
+                        user.setShips(i, false, location);
+                        break;
+                    }
+                    catch(Exception e){
+                        System.out.println("Invalid Input, ship overlaps other ship or edge");
+                    }
+                } else if ((response.toUpperCase().charAt(0) != 'N')||(response.toUpperCase().charAt(0) != 'Y')) {
+                    System.out.println("Y or N");
                 }
-                System.out.println("Y or N");
             }
-            user.setShips(i, isVertical, location);
         }
     }
 
