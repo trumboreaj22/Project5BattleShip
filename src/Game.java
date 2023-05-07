@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
@@ -16,7 +17,15 @@ public class Game {
      */
     public void gameLoop(){
         setup();
+        /*
+        boolean userIsGuessing = true;
+        while (true) {
+            if (userIsGuessing) {
+                System.out.println("Enter a space to guess");
+            }
+        }
 
+         */
     }
 
     /**
@@ -25,10 +34,10 @@ public class Game {
     public void setup(){
         System.out.println(printBoard(user));
         Scanner scn = new Scanner(System.in);
-
+        Random rand = new Random();
 
         for(int i = 0; i < user.getPlayerShips().size(); i++) {
-            System.out.println("Location for " + user.getPlayerShips().get(i) + "?");
+            System.out.println("Location for " + user.getPlayerShips().get(i).getShipName() + " (length of " + user.getPlayerShips().get(i).getSize() + ")?");
             String location = scn.next();
 
             System.out.println("Is the ship vertical?");
@@ -54,6 +63,26 @@ public class Game {
                     System.out.println("Y or N");
                 }
             }
+        }
+
+        // setting up AI board randomly
+        int index = 0;
+        while(true) {
+            String row = (char)(rand.nextInt(10) + 65) + "";
+            String col = (char)(rand.nextInt(10) + 49) + "";
+            if (col.equals(":")) {
+                col = "10";
+            }
+            String location = row + col;
+            boolean isVertical = rand.nextBoolean();
+            try {
+                ai.setShips(index, isVertical, location);
+                index++;
+                if (index == 5) {
+                    break;
+                }
+            }
+            catch (Exception e) { }
         }
     }
 

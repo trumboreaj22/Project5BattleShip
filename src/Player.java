@@ -72,9 +72,48 @@ public class Player {
         return shipSpacesRemaining;
     }
 
-    public void setShips(int index, boolean isVertical, String location){
-        int l = m.get(location);
-        playerShips.get(index).setShip(isVertical, l);
+    public void setShips(int index, boolean isVertical, String location) throws Exception {
+        int l = playerSelection(location);
+        if (isValidPlacement(playerShips.get(index), isVertical, l)) {
+            playerShips.get(index).setShip(isVertical, l);
+            for (int i = 0; i < playerShips.get(index).getSize(); i++) {
+                if (isVertical) {
+                    board[l + i * 10] = 'A';
+                } else {
+                    board[l + i] = 'A';
+                }
+            }
+
+        } else {
+            throw new Exception();
+        }
+
+    }
+
+    public boolean isValidPlacement (Ship s, boolean isVertical, int location) {
+        if (isVertical) {
+            if (s.getSize() * 10 + location > 99) {
+                return false;
+            }
+        } else {
+            if (s.getSize() + location > 99) {
+                return false;
+            }
+        }
+
+        for (int i = 0; i < s.getSize(); i++){
+            if (isVertical) {
+                if (board[location + 10 * i] != 'O') {
+                    return false;
+                }
+            } else {
+                if (board[location + i] != 'O') {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     /**
