@@ -16,16 +16,38 @@ public class Game {
      * runs through a full game
      */
     public void gameLoop(){
+        Scanner scn = new Scanner(System.in);
+
         setup();
-        /*
+
         boolean userIsGuessing = true;
         while (true) {
             if (userIsGuessing) {
-                System.out.println("Enter a space to guess");
+                System.out.println("Enter a space to guess:");
+                String guess = scn.next();
+                try{
+                    ai.play(guess);
+                }
+                catch (Exception e){
+                    System.out.println("Make sure the space has not been guessed yet and is in the form \"A1\"");
+                    continue;
+                }
+
+                char result = ai.getStatus(ai.playerSelection(guess));
+                if (result == 'S'){
+                    System.out.println("You sunk my ");
+                    if (ai.hasWon()){
+                        break;
+                    }
+                }
+                else if (result == 'M'){
+                    System.out.println("Miss!");
+                } else {
+                    System.out.println("Hit!");
+                }
             }
         }
 
-         */
     }
 
     /**
@@ -39,8 +61,9 @@ public class Game {
         for(int i = 0; i < user.getPlayerShips().size(); i++) {
             System.out.println("Location for " + user.getPlayerShips().get(i).getShipName() + " (length of " + user.getPlayerShips().get(i).getSize() + ")?");
             String location = scn.next();
+            location = location.toUpperCase();
 
-            System.out.println("Is the ship vertical?");
+            System.out.println("Is the ship vertical? ('Y' or 'N')");
             while(true) {
                 String response = scn.next();
                 if (response.toUpperCase().charAt(0) == 'Y') {
@@ -50,6 +73,8 @@ public class Game {
                     }
                     catch(Exception e){
                         System.out.println("Invalid Input, ship overlaps other ship or edge");
+                        i--;
+                        break;
                     }
                 } else if (response.toUpperCase().charAt(0) == 'N') {
                     try {
@@ -58,6 +83,8 @@ public class Game {
                     }
                     catch(Exception e){
                         System.out.println("Invalid Input, ship overlaps other ship or edge");
+                        i--;
+                        break;
                     }
                 } else if ((response.toUpperCase().charAt(0) != 'N')||(response.toUpperCase().charAt(0) != 'Y')) {
                     System.out.println("Y or N");

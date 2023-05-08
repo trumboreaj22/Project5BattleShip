@@ -96,7 +96,7 @@ public class Player {
                 return false;
             }
         } else {
-            if (s.getSize() + location > 99) {
+            if ((s.getSize() + location) % 10 < location % 10) {
                 return false;
             }
         }
@@ -126,21 +126,38 @@ public class Player {
 
     /**
      * Updates the board according to the location entered
-     * @param location is an int from 0-99 representing the desired space on the board
+     * @param location is a String in the form "A1" representing the desired space on the board
      */
-    public void play(int location) throws Exception {
-        Integer l = location;
-        if(guesses.contains(l)){
+    public void play(String location) throws Exception {
+        int l;
+        if (isValidGuess(location)) {
+            l = playerSelection(location);
+        } else {
             throw new Exception();
         }
 
-        if(getStatus(location) == 'O'){
-            board[location] = 'M';
+        if(getStatus(l) == 'O'){
+            board[l] = 'M';
         } else {
-            board[location] = 'H';
+            board[l] = 'H';
+            shipSpacesRemaining--;
+
         }
 
         guesses.add(l);
+    }
+
+    public boolean isValidGuess(String location){
+        try {
+            int l = playerSelection(location);
+        }
+        catch (Exception e){
+            return false;
+        }
+        if(guesses.contains(playerSelection(location))){
+            return false;
+        }
+        return true;
     }
 
     /**
