@@ -141,7 +141,18 @@ public class Player {
         } else {
             board[l] = 'H';
             shipSpacesRemaining--;
-
+            outerloop:
+            for (int i = 0; i < playerShips.size(); i++){
+                for (int j = 0; j < playerShips.get(i).getSize(); j++){
+                    if (l == playerShips.get(i).getLocations()[j]) {
+                        playerShips.get(i).hitShipSpace(j);
+                        if (playerShips.get(i).hasSunk()){
+                            System.out.println(playerShips.get(i).getShipName() + " has been sunk!");
+                        }
+                        break outerloop;
+                    }
+                }
+            }
         }
 
         guesses.add(l);

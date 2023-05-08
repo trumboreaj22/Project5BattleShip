@@ -14,25 +14,25 @@ public class Ship {
      */
     private final String shipName;
 
-    private final char[] shipStatus;
+    private char[] shipStatus;
 
     private boolean isVertical;
 
-    private int location;
+    private int[] locations;
 
     /**
      * Constructor for ship
      * @param shipName String, name of ship
      * @param size int, sets the size of shipStatus array
      * @param isVertical boolean, horizontal[false] vertical[True]
-     * @param location int, board location for ship
+     * @param locations int array, board locations of ship
      */
     public Ship(String shipName, int size){
         this.shipName = shipName;
         shipStatus = new char[size];
         Arrays.fill(shipStatus, 'A');
         isVertical = false;
-        location = -1;
+        locations = new int[size];
     }
 
     /**
@@ -52,8 +52,8 @@ public class Ship {
     /**
      * @return location of edge of ship
      */
-    public int getLocation() {
-        return location;
+    public int[] getLocations() {
+        return locations;
     }
 
     /**
@@ -65,7 +65,13 @@ public class Ship {
 
     public void setShip (boolean isVertical, int location){
         this.isVertical = isVertical;
-        this.location = location;
+        for (int i = 0; i < shipStatus.length; i++){
+            if (isVertical){
+                locations[i] = location + 10 * i;
+            } else {
+                locations[i] = location + i;
+            }
+        }
     }
 
     /**
@@ -82,9 +88,10 @@ public class Ship {
     }
 
     /**
-     * if hasSunk() is true, sets all shipStatus chars to 'S'
+     * Updates array[index] to hit
+     * @param index int of which space was hit
      */
-    public void sinkShip(){
-        Arrays.fill(shipStatus, 'S');
+    public void hitShipSpace(int index){
+        shipStatus[index] = 'H';
     }
 }

@@ -25,6 +25,7 @@ public class Game {
             if (userIsGuessing) {
                 System.out.println("Enter a space to guess:");
                 String guess = scn.next();
+                guess = guess.toUpperCase();
                 try{
                     ai.play(guess);
                 }
@@ -34,17 +35,16 @@ public class Game {
                 }
 
                 char result = ai.getStatus(ai.playerSelection(guess));
-                if (result == 'S'){
-                    System.out.println("You sunk my ");
+                if (result == 'M'){
+                    System.out.println("Miss!");
+                } else if (result == 'H'){
+                    System.out.println("Hit!");
+                } else {
                     if (ai.hasWon()){
                         break;
                     }
                 }
-                else if (result == 'M'){
-                    System.out.println("Miss!");
-                } else {
-                    System.out.println("Hit!");
-                }
+                System.out.println(printHiddenBoard(ai));
             }
         }
 
@@ -120,6 +120,23 @@ public class Game {
                 output += "\n" + (char)('A' + (i / 10)) + " ";
             }
             output += player.getStatus(i) + " ";
+
+        }
+        return output;
+    }
+
+    public String printHiddenBoard(Player player){
+        String output = "  1 2 3 4 5 6 7 8 9 10";
+        for (int i = 0; i < 100; i++){
+            if ((i) % 10 == 0){
+                output += "\n" + (char)('A' + (i / 10)) + " ";
+            }
+            char next = player.getStatus(i);
+            if (next == 'O' || next == 'A'){
+                output += '-' + " ";
+            } else {
+                output += player.getStatus(i) + " ";
+            }
 
         }
         return output;
