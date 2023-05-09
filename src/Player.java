@@ -20,7 +20,7 @@ public class Player {
     /**
      * A set of integers that represents the spaces on the board that have been already guessed
      */
-    private Set<Integer> guesses = new HashSet<>();
+    protected Set<Integer> guesses = new HashSet<>();
 
     /**
      * A map that translates a String location 'A1' to an integer 1
@@ -148,6 +148,9 @@ public class Player {
                         playerShips.get(i).hitShipSpace(j);
                         if (playerShips.get(i).hasSunk()){
                             System.out.println(playerShips.get(i).getShipName() + " has been sunk!");
+                            for (int shipLocation : playerShips.get(i).getLocations()){
+                                board[shipLocation] = 'S';
+                            }
                         }
                         break outerloop;
                     }

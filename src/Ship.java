@@ -24,8 +24,8 @@ public class Ship {
      * Constructor for ship
      * @param shipName String, name of ship
      * @param size int, sets the size of shipStatus array
-     * @param isVertical boolean, horizontal[false] vertical[True]
-     * @param locations int array, board locations of ship
+     * isVertical boolean, horizontal[false] vertical[True]
+     * locations int array, board locations of ship
      */
     public Ship(String shipName, int size){
         this.shipName = shipName;

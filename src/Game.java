@@ -45,6 +45,12 @@ public class Game {
                     }
                 }
                 System.out.println(printHiddenBoard(ai));
+                // userIsGuessing = false;
+            } else {
+
+
+                // System.out.println(printBoard(user));
+                // userIsGuessing = true;
             }
         }
 
