@@ -61,6 +61,7 @@ public class Game {
                 } else if (result == 'H'){
                     System.out.println("Hit!");
                     ai.setAttackingShip(true);
+                    ai.addHits(aiGuess);
                 } else {
                     if (user.hasWon()){
                         break;

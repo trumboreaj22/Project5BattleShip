@@ -4,12 +4,12 @@ public class Player {
     /**
      * An array representing the state of the board
      */
-    private char[] board = new char[100];
+    protected char[] board = new char[100];
 
     /**
      * An integer that represents the number of ship spaces that have not yet been sunk
      */
-    private int shipSpacesRemaining = 17;
+    protected int shipSpacesRemaining = 17;
     private Ship carrier;
     private Ship battleship;
     private Ship cruiser;
@@ -25,7 +25,7 @@ public class Player {
     /**
      * A map that translates a String location 'A1' to an integer 1
      */
-    private Map<String, Integer> m = new HashMap<>();
+    protected Map<String, Integer> m = new HashMap<>();
 
     /**
      * Constructor - creates a player's board

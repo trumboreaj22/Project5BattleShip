@@ -11,9 +11,9 @@ public class AI extends Player {
      */
     private boolean isAttackingShip;
 
-    private Map<Integer, String> m = new HashMap<>();
+    private Map<Integer, String> M = new HashMap<>();
 
-    private ArrayList<Integer> hits;
+    private ArrayList<String> hits;
 
     /**
      * Constructor, creates AI, sets AI attack to random
@@ -31,7 +31,7 @@ public class AI extends Player {
                 }
                 String key =(char)('A' + i) + num;
 
-                m.put( 10 * i + j, key);
+                M.put( 10 * i + j, key);
             }
         }
     }
@@ -52,17 +52,17 @@ public class AI extends Player {
             }
         } else {
             for(int i = hits.size() -1; i >= 0; i--){
-                if(hits.get(i)+1 == 'O'){
-                    guess = hits.get(i)+1;
+                if(m.get(hits.get(i))+1 == 'O' || m.get(hits.get(i))+1 == 'A'){
+                    guess = m.get(hits.get(i)+1);
                 }
-                else if(hits.get(i)+10 == 'O'){
-                    guess = hits.get(i)+10;
+                else if(m.get(hits.get(i))+10 == '0' || m.get(hits.get(i))+10 == 'A'){
+                    guess = m.get(hits.get(i))+10;
                 }
-                else if(hits.get(i)-1 == 'O'){
-                    guess = hits.get(i)-1;
+                else if(m.get(hits.get(i))-1 == '0' || m.get(hits.get(i))-1 == 'A'){
+                    guess = m.get(hits.get(i))-1;
                 }
                 else{
-                    guess = hits.get(i)-10;
+                    guess = m.get(hits.get(i))-10;
                 }
 
             }
@@ -73,7 +73,7 @@ public class AI extends Player {
 
 
 
-        return m.get(guess);
+        return M.get(guess);
     }
 
     public void setAttackingShip(boolean isAttackingShip) {
@@ -82,6 +82,10 @@ public class AI extends Player {
 
     public ArrayList getHits() {
         return hits;
+    }
+
+    public void addHits(String hit){
+        hits.add(hit);
     }
 
 
