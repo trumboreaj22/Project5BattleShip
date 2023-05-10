@@ -51,7 +51,6 @@ public class Game {
                 // System.out.println(printBoard(user));
                 try{
                     user.play(aiGuess);
-                    user.addGuess(user.playerSelection(aiGuess));
                 }
                 catch (Exception e){
                     continue;
@@ -62,7 +61,7 @@ public class Game {
                 } else if (result == 'H'){
                     System.out.println("Hit!");
                     ai.setAttackingShip(true);
-                    ai.addHit(ai.playerSelection(aiGuess));
+                    ai.addHits(aiGuess);
                 } else {
                     if (user.hasWon()){
                         break;
@@ -122,9 +121,8 @@ public class Game {
                     System.out.println("Y or N");
                 }
             }
-
+            System.out.println(printPlayerBoard(user));
         }
-        System.out.println(printPlayerBoard(user));
 
         // setting up AI board randomly
         int index = 0;
@@ -193,5 +191,4 @@ public class Game {
         }
         return output;
     }
-
 }
