@@ -41,16 +41,14 @@ public class AI extends Player {
      * @return int for attack
      */
     public String aiSelection(){
-        Integer guess = 0;
+        Integer guess;
         Random rand = new Random();
-        if(!isAttackingShip){
             while (true) {
                 guess = rand.nextInt(99) + 1;
                 if (!guesses.contains(guess)){
                     break;
                 }
-            }
-        } else {
+        } if(isAttackingShip) {
             for(int i = hits.size() -1; i >= 0; i--){
                 if(board[m.get(hits.get(i))+1] == 'O' || board[m.get(hits.get(i))+1] == 'A'){
                     guess = m.get(hits.get(i)+1);
