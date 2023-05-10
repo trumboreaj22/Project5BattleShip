@@ -200,4 +200,8 @@ public class Player {
     public boolean hasWon(){
         return shipSpacesRemaining == 0;
     }
+
+    public void addGuess(Integer guess) {
+        guesses.add(guess);
+    }
 }

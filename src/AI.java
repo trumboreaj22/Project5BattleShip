@@ -69,10 +69,6 @@ public class AI extends Player {
 
         }
 
-        guesses.add(guess);
-
-
-
         return m.get(guess);
     }
 
@@ -82,6 +78,10 @@ public class AI extends Player {
 
     public ArrayList getHits() {
         return hits;
+    }
+
+    public void addHit (Integer hit){
+        hits.add(hit);
     }
 
 
