@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class AI extends Player {
@@ -9,6 +11,8 @@ public class AI extends Player {
      */
     private boolean isAttackingShip;
 
+    private Map<Integer, String> m = new HashMap<>();
+
     private ArrayList<Integer> hits;
 
     /**
@@ -18,15 +22,26 @@ public class AI extends Player {
         boolean isAttackingShip = false;
 
         hits = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++){
+            for (int j = 0; j < 10; j++){
+                String num = "" + (char)('1' + j);
+                if (num.equals(":")){
+                    num = "10";
+                }
+                String key =(char)('A' + i) + num;
+
+                m.put( 10 * i + j, key);
+            }
+        }
     }
 
     /**
      * AI algorithm to determine which space to attack
      * @return int for attack
      */
-    public int aiSelection(){
-        Integer guess;
-        /*
+    public String aiSelection(){
+        Integer guess = 0;
         Random rand = new Random();
         if(!isAttackingShip){
             while (true) {
@@ -36,12 +51,38 @@ public class AI extends Player {
                 }
             }
         } else {
+            for(int i = hits.size() -1; i >= 0; i--){
+                if(hits.get(i)+1 == 'O'){
+                    guess = hits.get(i)+1;
+                }
+                else if(hits.get(i)+10 == 'O'){
+                    guess = hits.get(i)+10;
+                }
+                else if(hits.get(i)-1 == 'O'){
+                    guess = hits.get(i)-1;
+                }
+                else{
+                    guess = hits.get(i)-10;
+                }
+
+            }
 
         }
 
         guesses.add(guess);
 
-         */
-        return guess;
+
+
+        return m.get(guess);
     }
+
+    public void setAttackingShip(boolean isAttackingShip) {
+        this.isAttackingShip = isAttackingShip;
+    }
+
+    public ArrayList getHits() {
+        return hits;
+    }
+
+
 }

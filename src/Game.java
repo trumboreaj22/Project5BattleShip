@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Game {
     private Player user;
-    private Player ai;
+    private AI ai;
     /**
      * Constructs a new game object
      */
@@ -44,14 +44,38 @@ public class Game {
                         break;
                     }
                 }
-                System.out.println(printHiddenBoard(ai));
-                // userIsGuessing = false;
+                 userIsGuessing = false;
             } else {
-
+                String aiGuess = ai.aiSelection();
 
                 // System.out.println(printBoard(user));
-                // userIsGuessing = true;
+                try{
+                    user.play(aiGuess);
+                }
+                catch (Exception e){
+                    continue;
+                }
+                char result = user.getStatus(user.playerSelection(aiGuess));
+                if (result == 'M'){
+                    System.out.println("Miss!");
+                } else if (result == 'H'){
+                    System.out.println("Hit!");
+                    ai.setAttackingShip(true);
+                } else {
+                    if (user.hasWon()){
+                        break;
+                    }
+                }
+                if(ai.getHits().size() == 0){
+                    ai.setAttackingShip(false);
+                }
+                userIsGuessing = true;
             }
+            System.out.println("Your Board");
+            System.out.println(printHiddenBoard(ai));
+
+            System.out.println("Enemy's Board");
+            System.out.println(printPlayerBoard(user));
         }
 
     }
@@ -60,11 +84,11 @@ public class Game {
      * Prompts user to set up board
      */
     public void setup(){
-        System.out.println(printBoard(user));
         Scanner scn = new Scanner(System.in);
         Random rand = new Random();
 
         for(int i = 0; i < user.getPlayerShips().size(); i++) {
+            System.out.println(printPlayerBoard(user));
             System.out.println("Location for " + user.getPlayerShips().get(i).getShipName() + " (length of " + user.getPlayerShips().get(i).getSize() + ")?");
             String location = scn.next();
             location = location.toUpperCase();
@@ -96,6 +120,7 @@ public class Game {
                     System.out.println("Y or N");
                 }
             }
+            System.out.println(printPlayerBoard(user));
         }
 
         // setting up AI board randomly
@@ -119,17 +144,18 @@ public class Game {
         }
     }
 
-    public String printBoard(Player player){
-        String output = "  1 2 3 4 5 6 7 8 9 10";
-        for (int i = 0; i < 100; i++){
-            if ((i) % 10 == 0){
-                output += "\n" + (char)('A' + (i / 10)) + " ";
-            }
-            output += player.getStatus(i) + " ";
-
-        }
-        return output;
-    }
+//    public String printBoard(Player player){
+//        String output = "  1 2 3 4 5 6 7 8 9 10";
+//        for (int i = 0; i < 100; i++){
+//            if ((i) % 10 == 0){
+//                output += "\n" + (char)('A' + (i / 10)) + " ";
+//            }
+//            output += player.getStatus(i) + " ";
+//
+//
+//        }
+//        return output;
+//    }
 
     public String printHiddenBoard(Player player){
         String output = "  1 2 3 4 5 6 7 8 9 10";
@@ -139,6 +165,23 @@ public class Game {
             }
             char next = player.getStatus(i);
             if (next == 'O' || next == 'A'){
+                output += '-' + " ";
+            } else {
+                output += player.getStatus(i) + " ";
+            }
+
+        }
+        return output;
+    }
+
+    public String printPlayerBoard(Player player){
+        String output = "  1 2 3 4 5 6 7 8 9 10";
+        for (int i = 0; i < 100; i++){
+            if ((i) % 10 == 0){
+                output += "\n" + (char)('A' + (i / 10)) + " ";
+            }
+            char next = player.getStatus(i);
+            if (next == 'O'){
                 output += '-' + " ";
             } else {
                 output += player.getStatus(i) + " ";

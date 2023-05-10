@@ -92,11 +92,11 @@ public class Player {
 
     public boolean isValidPlacement (Ship s, boolean isVertical, int location) {
         if (isVertical) {
-            if (s.getSize() * 10 + location > 99) {
+            if ((s.getSize()-1) * 10 + location > 99) {
                 return false;
             }
         } else {
-            if ((s.getSize() + location) % 10 < location % 10) {
+            if (((s.getSize()-1) + location) % 10 < location % 10) {
                 return false;
             }
         }
