@@ -51,6 +51,7 @@ public class Game {
                 // System.out.println(printBoard(user));
                 try{
                     user.play(aiGuess);
+                    user.addGuess(user.playerSelection(aiGuess));
                 }
                 catch (Exception e){
                     continue;
