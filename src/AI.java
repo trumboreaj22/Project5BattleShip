@@ -52,13 +52,13 @@ public class AI extends Player {
             }
         } else {
             for(int i = hits.size() -1; i >= 0; i--){
-                if(m.get(hits.get(i))+1 == 'O' || m.get(hits.get(i))+1 == 'A'){
+                if(board[m.get(hits.get(i))+1] == 'O' || board[m.get(hits.get(i))+1] == 'A'){
                     guess = m.get(hits.get(i)+1);
                 }
-                else if(m.get(hits.get(i))+10 == '0' || m.get(hits.get(i))+10 == 'A'){
+                else if(board[m.get(hits.get(i))+10] == '0' || board[m.get(hits.get(i))+10] == 'A'){
                     guess = m.get(hits.get(i))+10;
                 }
-                else if(m.get(hits.get(i))-1 == '0' || m.get(hits.get(i))-1 == 'A'){
+                else if(board[m.get(hits.get(i))-1] == '0' || board[m.get(hits.get(i))-1] == 'A'){
                     guess = m.get(hits.get(i))-1;
                 }
                 else{
