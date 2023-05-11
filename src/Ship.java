@@ -56,12 +56,6 @@ public class Ship {
         return locations;
     }
 
-    /**
-     * @return whether the ship is vertical or not
-     */
-    public boolean getIsVertical(){
-        return isVertical;
-    }
 
     public void setShip (boolean isVertical, int location){
         this.isVertical = isVertical;

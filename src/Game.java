@@ -44,9 +44,9 @@ public class Game {
                     break;
                 }
             }
-            // System.out.println(printBoard(user));
 
             String aiGuess;
+            //AI turn
                 try {
                     aiGuess = user.aiSelection();
                     user.play(aiGuess);
@@ -145,19 +145,10 @@ public class Game {
         }
     }
 
-//    public String printBoard(Player player){
-//        String output = "  1 2 3 4 5 6 7 8 9 10";
-//        for (int i = 0; i < 100; i++){
-//            if ((i) % 10 == 0){
-//                output += "\n" + (char)('A' + (i / 10)) + " ";
-//            }
-//            output += player.getStatus(i) + " ";
-//
-//
-//        }
-//        return output;
-//    }
-
+    /**
+     * @param player
+     * @return board without ship locations
+     */
     public String printHiddenBoard(Player player){
         String output = "  1 2 3 4 5 6 7 8 9 10";
         for (int i = 0; i < 100; i++){
@@ -175,6 +166,11 @@ public class Game {
         return output;
     }
 
+    /**
+     *
+     * @param player
+     * @return board with ship locations
+     */
     public String printPlayerBoard(Player player){
         String output = "  1 2 3 4 5 6 7 8 9 10";
         for (int i = 0; i < 100; i++){

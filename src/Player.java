@@ -92,6 +92,13 @@ public class Player {
         return shipSpacesRemaining;
     }
 
+    /**
+     *
+     * @param index which ship is being set
+     * @param isVertical
+     * @param location
+     * @throws Exception ships that intersect or are out of bounds
+     */
     public void setShips(int index, boolean isVertical, String location) throws Exception {
         int l = playerSelection(location);
         if (isValidPlacement(playerShips.get(index), isVertical, l)) {
@@ -111,6 +118,7 @@ public class Player {
     }
 
     public boolean isValidPlacement (Ship s, boolean isVertical, int location) {
+        //ships that go off the edge are not valid and should not wrap to next line
         if (isVertical) {
             if ((s.getSize()-1) * 10 + location > 99) {
                 return false;
@@ -137,14 +145,6 @@ public class Player {
     }
 
     /**
-     * @param shipSpacesRemaining new amount of ships spaces remaining
-     */
-    public void setShipSpacesRemaining(int shipSpacesRemaining){
-        this.shipSpacesRemaining = shipSpacesRemaining;
-    }
-
-
-    /**
      * Updates the board according to the location entered
      * @param location is a String in the form "A1" representing the desired space on the board
      */
@@ -162,10 +162,14 @@ public class Player {
             board[l] = 'H';
             shipSpacesRemaining--;
             outerloop:
+            //first loop sorts through each ship
+            //second loop goes through each location of each ship
             for (int i = 0; i < playerShips.size(); i++){
                 for (int j = 0; j < playerShips.get(i).getSize(); j++){
                     if (l == playerShips.get(i).getLocations()[j]) {
                         playerShips.get(i).hitShipSpace(j);
+
+                        //find the location of ship that just sunk
                         if (playerShips.get(i).hasSunk()){
                             System.out.println(name + " " + playerShips.get(i).getShipName() + " has been sunk!");
                             for (int shipLocation : playerShips.get(i).getLocations()){
@@ -182,6 +186,11 @@ public class Player {
         guesses.add(l);
     }
 
+    /**
+     *
+     * @param location
+     * @return boolean if guess is valid or not
+     */
     public boolean isValidGuess(String location){
         try {
             int l = playerSelection(location);
@@ -215,29 +224,40 @@ public class Player {
         return m.get(location);
     }
 
+    /**
+     * main AI algorithm
+     * @return String of AI Guess
+     */
     public String aiSelection(){
         Integer guess;
+
+        //random guessing
         Random rand = new Random();
         while (true) {
             guess = rand.nextInt(99) + 1;
             if (!guesses.contains(guess)){
                 break;
             }
+            //focused guessing
         } if(isAttackingShip) {
             for(int i = hits.size() -1; i >= 0; i--){
+                //right
                 if(((m.get(hits.get(i)) + 1) % 10) > (m.get(hits.get(i)) % 10) && (board[m.get(hits.get(i))+1] == 'O' || board[m.get(hits.get(i))+1] == 'A')){
                     guess = m.get(hits.get(i))+1;
                     break;
                 }
+                //below
                 else if((m.get(hits.get(i)) + 10 < 100) && (board[m.get(hits.get(i))+10] == '0' || board[m.get(hits.get(i))+10] == 'A')){
                     guess = m.get(hits.get(i))+10;
                     break;
                 }
+                //left
                 else if(((m.get(hits.get(i)) - 1) % 10) < (m.get(hits.get(i)) % 10) && (board[m.get(hits.get(i))-1] == 'O' || board[m.get(hits.get(i))-1] == 'A')){
                     guess = m.get(hits.get(i))-1;
                     break;
                 }
-                else if((m.get(hits.get(i)) - 10 > 0) && (board[m.get(hits.get(i))-10] == '0' || board[m.get(hits.get(i))-10] == 'A')){
+                //top
+                else if((m.get(hits.get(i)) - 10 > -1) && (board[m.get(hits.get(i))-10] == '0' || board[m.get(hits.get(i))-10] == 'A')){
                     guess = m.get(hits.get(i))-10;
                     break;
                 }
@@ -257,18 +277,34 @@ public class Player {
         return shipSpacesRemaining == 0;
     }
 
+    /**
+     * add guess to guesses Array
+     * @param guess
+     */
     public void addGuess(Integer guess) {
         guesses.add(guess);
     }
 
+    /**
+     * setter
+     * @param isAttackingShip
+     */
     public void setAttackingShip(boolean isAttackingShip) {
         this.isAttackingShip = isAttackingShip;
     }
 
+    /**
+     * getter
+     * @return hits ArrayList
+     */
     public ArrayList getHits() {
         return hits;
     }
 
+    /**
+     * add hits to hits ArrayList
+     * @param hit
+     */
     public void addHits(String hit){
         hits.add(hit);
     }
