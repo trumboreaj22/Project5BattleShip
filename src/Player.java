@@ -168,6 +168,7 @@ public class Player {
                             System.out.println(playerShips.get(i).getShipName() + " has been sunk!");
                             for (int shipLocation : playerShips.get(i).getLocations()){
                                 board[shipLocation] = 'S';
+                                hits.remove(M.get(shipLocation));
                             }
                         }
                         break outerloop;
