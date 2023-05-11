@@ -3,13 +3,13 @@ import java.util.Scanner;
 
 public class Game {
     private Player user;
-    private AI ai;
+    private Player ai;
     /**
      * Constructs a new game object
      */
     public Game(){
         user = new Player();
-        ai = new AI();
+        ai = new Player();
     }
 
     /**
@@ -44,7 +44,7 @@ public class Game {
                 }
             }
 
-            String aiGuess = ai.aiSelection();
+            String aiGuess = user.aiSelection();
 
             // System.out.println(printBoard(user));
             try{
@@ -59,8 +59,8 @@ public class Game {
                 System.out.println("The AI Missed!");
             } else if (result == 'H'){
                 System.out.println("The AI Hit!");
-                ai.setAttackingShip(true);
-                ai.addHits(aiGuess);
+                user.setAttackingShip(true);
+                user.addHits(aiGuess);
             } else {
                 if (user.hasWon()){
                     System.out.println("You Lost to an AI!");

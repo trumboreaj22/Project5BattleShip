@@ -16,6 +16,9 @@ public class Player {
     private Ship submarine;
     private Ship destroyer;
     private ArrayList<Ship> playerShips;
+    protected ArrayList<String> hits;
+    private Map<Integer, String> M = new HashMap<>();
+    private boolean isAttackingShip = false;
 
     /**
      * A set of integers that represents the spaces on the board that have been already guessed
@@ -42,6 +45,19 @@ public class Player {
                 m.put(key, 10 * i + j);
             }
         }
+
+        for (int i = 0; i < 10; i++){
+            for (int j = 0; j < 10; j++){
+                String num = "" + (char)('1' + j);
+                if (num.equals(":")){
+                    num = "10";
+                }
+                String key =(char)('A' + i) + num;
+
+                M.put( 10 * i + j, key);
+            }
+        }
+
         Arrays.fill(board, 'O');
         carrier = new Ship("Carrier", 5);
         battleship = new Ship("Battleship", 4);
@@ -56,6 +72,8 @@ public class Player {
         playerShips.add(cruiser);
         playerShips.add(submarine);
         playerShips.add(destroyer);
+
+        hits = new ArrayList<>();
     }
 
     /**
@@ -194,6 +212,41 @@ public class Player {
         return m.get(location);
     }
 
+    public String aiSelection(){
+        Integer guess;
+        Random rand = new Random();
+        while (true) {
+            guess = rand.nextInt(99) + 1;
+            if (!guesses.contains(guess)){
+                break;
+            }
+        } if(isAttackingShip) {
+            for(int i = hits.size() -1; i >= 0; i--){
+                if(board[m.get(hits.get(i))+1] == 'O' || board[m.get(hits.get(i))+1] == 'A'){
+                    guess = m.get(hits.get(i))+1;
+                    break;
+                }
+                else if(board[m.get(hits.get(i))+10] == '0' || board[m.get(hits.get(i))+10] == 'A'){
+                    guess = m.get(hits.get(i))+10;
+                    break;
+                }
+                else if(board[m.get(hits.get(i))-1] == '0' || board[m.get(hits.get(i))-1] == 'A'){
+                    guess = m.get(hits.get(i))-1;
+                    break;
+                }
+                else{
+                    guess = m.get(hits.get(i))-10;
+                    break;
+                }
+
+            }
+
+        }
+
+
+        return M.get(guess);
+    }
+
     /**
      * @return a boolean: true if the player sunk all the ships, otherwise false
      */
@@ -203,5 +256,17 @@ public class Player {
 
     public void addGuess(Integer guess) {
         guesses.add(guess);
+    }
+
+    public void setAttackingShip(boolean isAttackingShip) {
+        this.isAttackingShip = isAttackingShip;
+    }
+
+    public ArrayList getHits() {
+        return hits;
+    }
+
+    public void addHits(String hit){
+        hits.add(hit);
     }
 }
