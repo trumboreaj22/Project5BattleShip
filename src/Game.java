@@ -20,68 +20,64 @@ public class Game {
 
         setup();
 
-        boolean userIsGuessing = true;
         while (true) {
-            if (userIsGuessing) {
-                System.out.println("Enter a space to guess:");
-                String guess = scn.next();
-                guess = guess.toUpperCase();
-                try{
-                    ai.play(guess);
-                }
-                catch (Exception e){
-                    System.out.println("Make sure the space has not been guessed yet and is in the form \"A1\"");
-                    continue;
-                }
-
-                char result = ai.getStatus(ai.playerSelection(guess));
-                if (result == 'M'){
-                    System.out.println("Miss!");
-                } else if (result == 'H'){
-                    System.out.println("Hit!");
-                } else {
-                    if (ai.hasWon()){
-                        System.out.println("You Won!");
-                        break;
-                    }
-                }
-                 userIsGuessing = false;
-            } else {
-                String aiGuess = ai.aiSelection();
-
-                // System.out.println(printBoard(user));
-                try{
-                    user.play(aiGuess);
-                    user.addGuess(user.playerSelection(aiGuess));
-                }
-                catch (Exception e){
-                    continue;
-                }
-                char result = user.getStatus(user.playerSelection(aiGuess));
-                if (result == 'M'){
-                    System.out.println("Miss!");
-                } else if (result == 'H'){
-                    System.out.println("Hit!");
-                    ai.setAttackingShip(true);
-                    ai.addHits(aiGuess);
-                } else {
-                    if (user.hasWon()){
-                        System.out.println("You Lost to an AI!");
-                        break;
-                    }
-                }
-                if(ai.getHits().size() == 0){
-                    ai.setAttackingShip(false);
-                }
-                userIsGuessing = true;
+            System.out.println("Enter a space to guess:");
+            String guess = scn.next();
+            guess = guess.toUpperCase();
+            try{
+                ai.play(guess);
             }
-            System.out.println("\nYour Radar");
-            System.out.println(printHiddenBoard(ai));
+            catch (Exception e){
+                System.out.println("Make sure the space has not been guessed yet and is in the form \"A1\"");
+                continue;
+            }
 
-            System.out.println("\nYour Ships");
-            System.out.println(printPlayerBoard(user));
+            char result = ai.getStatus(ai.playerSelection(guess));
+            if (result == 'M'){
+                System.out.println("Miss!");
+            } else if (result == 'H'){
+                System.out.println("Hit!");
+            } else {
+                if (ai.hasWon()){
+                    System.out.println("You Won!");
+                    break;
+                }
+            }
+
+            String aiGuess = ai.aiSelection();
+
+            // System.out.println(printBoard(user));
+            try{
+                user.play(aiGuess);
+                user.addGuess(user.playerSelection(aiGuess));
+            }
+            catch (Exception e){
+                continue;
+            }
+            result = user.getStatus(user.playerSelection(aiGuess));
+            if (result == 'M'){
+                System.out.println("The AI Missed!");
+            } else if (result == 'H'){
+                System.out.println("The AI Hit!");
+                ai.setAttackingShip(true);
+                ai.addHits(aiGuess);
+            } else {
+                if (user.hasWon()){
+                    System.out.println("You Lost to an AI!");
+                    break;
+                }
+            }
+            if(ai.getHits().size() == 0){
+                ai.setAttackingShip(false);
+            }
+
+        System.out.println("\nYour Radar");
+        System.out.println(printHiddenBoard(ai));
+
+        System.out.println("\nYour Ships");
+        System.out.println(printPlayerBoard(user));
+
         }
-
     }
 
     /**
