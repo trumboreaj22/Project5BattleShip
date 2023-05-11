@@ -41,6 +41,7 @@ public class Game {
                     System.out.println("Hit!");
                 } else {
                     if (ai.hasWon()){
+                        System.out.println("You Won!");
                         break;
                     }
                 }
@@ -65,6 +66,7 @@ public class Game {
                     ai.addHits(aiGuess);
                 } else {
                     if (user.hasWon()){
+                        System.out.println("You Lost to an AI!");
                         break;
                     }
                 }
@@ -73,10 +75,10 @@ public class Game {
                 }
                 userIsGuessing = true;
             }
-            System.out.println("Your Board");
+            System.out.println("\nYour Radar");
             System.out.println(printHiddenBoard(ai));
 
-            System.out.println("Enemy's Board");
+            System.out.println("\nYour Ships");
             System.out.println(printPlayerBoard(user));
         }
 
@@ -122,8 +124,8 @@ public class Game {
                     System.out.println("Y or N");
                 }
             }
-            System.out.println(printPlayerBoard(user));
         }
+        System.out.println(printPlayerBoard(user));
 
         // setting up AI board randomly
         int index = 0;
