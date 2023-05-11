@@ -8,8 +8,8 @@ public class Game {
      * Constructs a new game object
      */
     public Game(){
-        user = new Player();
-        ai = new Player();
+        user = new Player("Player");
+        ai = new Player("AI");
     }
 
     /**
@@ -39,21 +39,21 @@ public class Game {
                 System.out.println("Hit!");
             } else {
                 if (ai.hasWon()){
-                    System.out.println("You Won!");
+                    System.out.println("\nYou Won!");
+                    System.out.println(printHiddenBoard(ai));
                     break;
                 }
             }
-
-            String aiGuess = user.aiSelection();
-
             // System.out.println(printBoard(user));
-            try{
-                user.play(aiGuess);
-                user.addGuess(user.playerSelection(aiGuess));
-            }
-            catch (Exception e){
-                continue;
-            }
+
+            String aiGuess;
+                try {
+                    aiGuess = user.aiSelection();
+                    user.play(aiGuess);
+                    user.addGuess(user.playerSelection(aiGuess));
+                } catch (Exception e) {
+                    continue;
+                }
             result = user.getStatus(user.playerSelection(aiGuess));
             if (result == 'M'){
                 System.out.println("The AI Missed!");
@@ -63,7 +63,8 @@ public class Game {
                 user.addHits(aiGuess);
             } else {
                 if (user.hasWon()){
-                    System.out.println("You Lost to an AI!");
+                    System.out.println("\nYou Lost to an AI!");
+                    System.out.println(printPlayerBoard(user));
                     break;
                 }
             }

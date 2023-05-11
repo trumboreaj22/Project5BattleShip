@@ -4,6 +4,7 @@ public class Player {
     /**
      * An array representing the state of the board
      */
+    private String name;
     protected char[] board = new char[100];
 
     /**
@@ -33,7 +34,8 @@ public class Player {
     /**
      * Constructor - creates a player's board
      */
-    public Player(){
+    public Player(String name){
+        this.name = name;
         for (int i = 0; i < 10; i++){
             for (int j = 0; j < 10; j++){
                 String num = "" + (char)('1' + j);
@@ -165,7 +167,7 @@ public class Player {
                     if (l == playerShips.get(i).getLocations()[j]) {
                         playerShips.get(i).hitShipSpace(j);
                         if (playerShips.get(i).hasSunk()){
-                            System.out.println(playerShips.get(i).getShipName() + " has been sunk!");
+                            System.out.println(name + " " + playerShips.get(i).getShipName() + " has been sunk!");
                             for (int shipLocation : playerShips.get(i).getLocations()){
                                 board[shipLocation] = 'S';
                                 hits.remove(M.get(shipLocation));
