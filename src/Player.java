@@ -223,19 +223,19 @@ public class Player {
             }
         } if(isAttackingShip) {
             for(int i = hits.size() -1; i >= 0; i--){
-                if(board[m.get(hits.get(i))+1] == 'O' || board[m.get(hits.get(i))+1] == 'A'){
+                if(((m.get(hits.get(i)) + 1) % 10) > (m.get(hits.get(i)) % 10) && (board[m.get(hits.get(i))+1] == 'O' || board[m.get(hits.get(i))+1] == 'A')){
                     guess = m.get(hits.get(i))+1;
                     break;
                 }
-                else if(board[m.get(hits.get(i))+10] == '0' || board[m.get(hits.get(i))+10] == 'A'){
+                else if((m.get(hits.get(i)) + 10 < 100) && (board[m.get(hits.get(i))+10] == '0' || board[m.get(hits.get(i))+10] == 'A')){
                     guess = m.get(hits.get(i))+10;
                     break;
                 }
-                else if(board[m.get(hits.get(i))-1] == '0' || board[m.get(hits.get(i))-1] == 'A'){
+                else if(((m.get(hits.get(i)) - 1) % 10) < (m.get(hits.get(i)) % 10) && (board[m.get(hits.get(i))-1] == 'O' || board[m.get(hits.get(i))-1] == 'A')){
                     guess = m.get(hits.get(i))-1;
                     break;
                 }
-                else{
+                else if((m.get(hits.get(i)) - 10 > 0) && (board[m.get(hits.get(i))-10] == '0' || board[m.get(hits.get(i))-10] == 'A')){
                     guess = m.get(hits.get(i))-10;
                     break;
                 }
